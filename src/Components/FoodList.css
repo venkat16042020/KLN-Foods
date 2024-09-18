@@ -1,0 +1,77 @@
+.food-list {
+    padding: 20px;
+  }
+  
+  .food-list h2 {
+    margin-bottom: 20px;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .food-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .food-table th, .food-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .food-table th {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  .food-table td img {
+    width: 100px;
+    height: 100px; 
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .food-table button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 12px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .food-table .edit-button {
+    background-color: #e0e0e0;
+  }
+  
+  .food-table .edit-button:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .food-table .delete-button {
+    color: red;
+  }
+  
+  .food-table .delete-button:hover {
+    background-color: #f8d7da;
+  }
+  .edit-form .save-button {
+    background-color: #28a745;
+    color: #fff; 
+  }
+  
+  .edit-form .save-button:hover {
+    background-color: #218838; 
+  }
+  
+  .edit-form .cancel-button {
+    background-color: #dc3545; 
+    color: #fff; 
+  }
+  
+  .edit-form .cancel-button:hover {
+    background-color: #c82333; 
+  }
+  
