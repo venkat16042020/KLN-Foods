@@ -1,0 +1,159 @@
+.page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 100vh;
+    padding: 20px; 
+  }
+  
+  .left-container, .right-container {
+    width: 30%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .round-link {
+    margin: 20px;
+    text-align: center;
+  }
+  
+  .round-link img {
+    width: 120px;
+    height: 120px; 
+    border-radius: 50%; 
+  }
+  
+  .center-container {
+    width: 40%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-container {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-container label {
+    margin-bottom: 5px;
+  }
+  
+  .login-container input {
+    padding: 8px; 
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%; 
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button[type="button"] {
+    background-color: #f44336;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
+  .image-container {
+    width: 120px; 
+    height: 300px; 
+    overflow: hidden; 
+    position: relative; 
+  }
+  
+  .image-container-inner {
+    display: flex;
+    flex-direction: column;
+    animation: scroll 10s linear infinite; 
+  }
+  
+  .image-container-inner img {
+    width: 120px; 
+    height: auto; 
+    margin: 5px 0; 
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%); 
+    }
+  }
+  .login-container h2 {
+    margin-bottom: 20px;
+    color: black; 
+  }
+  
+  .login-container label {
+    margin-bottom: 5px;
+    color: black; 
+  }
+  .image-container {
+    width: 150px; 
+    height: 400px; 
+    overflow: hidden; 
+    position: relative; 
+  }
+  
+  .image-container-inner {
+    display: flex;
+    flex-direction: column;
+    animation: scroll 10s linear infinite;
+  }
+  
+  .image-container-inner img {
+    width: 150px;
+    height: auto; 
+    margin: 5px 0; 
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%); 
+    }
+  }
+  

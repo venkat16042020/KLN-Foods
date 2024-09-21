@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Item.css';
@@ -96,40 +94,40 @@ const Item = () => {
   };
 
   return (
-    <div className="item-container">
+    <div className="item-form-container">
       <h2>Add New Food Item</h2>
       <form onSubmit={handleSubmit} className="item-form">
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="price">Price:</label>
           <input type="number" id="price" name="price" value={formData.price} onChange={handleInputChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="stateGST">State GST:</label>
           <input type="number" id="stateGST" name="stateGST" value={formData.stateGST} onChange={handleInputChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="centralGST">Central GST:</label>
           <input type="number" id="centralGST" name="centralGST" value={formData.centralGST} onChange={handleInputChange} required />
         </div>
 
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="totalGST">Total GST:</label>
           <input type="number" id="totalGST" name="totalGST" value={formData.totalGST} readOnly />
         </div>
 
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="totalPrice">Total Price:</label>
           <input type="number" id="totalPrice" name="totalPrice" value={formData.totalPrice} readOnly />
         </div>
 
-        <div className="form-group">
+        <div className="item-form-group">
           <label htmlFor="categoryName">Category:</label>
           <select id="categoryName" name="categoryName" value={formData.categoryName} onChange={handleInputChange} required>
             <option value="">Select a category</option>
@@ -141,21 +139,21 @@ const Item = () => {
           </select>
         </div>
 
-        <div className="form-group full-width">
+        <div className="item-form-group item-description">
           <label htmlFor="description">Description:</label>
           <textarea id="description" name="description" value={formData.description} onChange={handleInputChange} required />
         </div>
 
-        <div className="form-group image-url">
+        <div className="item-form-group item-image-url">
           <label htmlFor="imageUrl">Image URL:</label>
           <input type="text" id="imageUrl" name="imageUrl" value={formData.imageUrl} onChange={handleInputChange} required />
         </div>
 
-        <button type="submit" className="submit-button">Add</button>
-        <button type="button" onClick={handleClear} className="clear-button">Clear</button>
+        <button type="submit" className="item-submit-button">Add</button>
+        <button type="button" onClick={handleClear} className="item-clear-button">Clear</button>
       </form>
 
-      {message && <p>{message}</p>}
+      {message && <p className="item-message">{message}</p>}
     </div>
   );
 };

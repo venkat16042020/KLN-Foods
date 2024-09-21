@@ -1,0 +1,60 @@
+.add-restaurant-container {
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+.add-restaurant-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: none; 
+    height: 100px;}
+
+.add-restaurant-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-button, .clear-button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: #4CAF50; 
+    color: white;
+}
+
+.clear-button {
+    background-color: #f44336; 
+    color: white;
+}

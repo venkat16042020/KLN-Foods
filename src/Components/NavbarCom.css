@@ -11,9 +11,7 @@
 }
 
 
-.custom-navbar .nav-link:hover {
-    color: darkred; 
-}
+
 
 
 .custom-navbar .nav-link svg {
@@ -24,14 +22,14 @@
 
 body {
     margin: 0;
-    background-color: black; 
-    color: white; 
+    background-color: white; 
+    color: black; 
 }
 
 
 .main-content {
-    background-color: black;
-    color: white; 
+    background-color: white;
+    color: black; 
     min-height: 100vh; 
     padding: 20px; 
 }

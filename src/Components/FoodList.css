@@ -1,77 +1,137 @@
-.food-list {
-    padding: 20px;
+.custom-food-list {
+  padding: 20px;
+}
+
+.custom-food-list h2 {
+  margin-bottom: 20px;
+}
+
+.custom-error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.custom-food-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.custom-food-table th, .custom-food-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.custom-food-table th {
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.custom-food-table td img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.custom-food-image {
+  border-radius: 8px;
+}
+
+.custom-food-table button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-edit-button {
+  background-color: #e6e6e6;
+}
+
+.custom-edit-button:hover {
+  background-color: #dcdcdc;
+}
+
+.custom-delete-button {
+  color: red;
+}
+
+.custom-delete-button:hover {
+  background-color: #ffebeb;
+}
+
+.custom-edit-form {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.custom-edit-form-grid-expanded {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 20px;
+}
+
+.custom-edit-form-grid-expanded label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: black; 
+}
+
+.custom-edit-form-grid-expanded input,
+.custom-edit-form-grid-expanded textarea {
+  padding: 15px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px; 
+  width: 100%; 
+}
+
+.custom-save-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-save-button:hover {
+  background-color: #218838;
+}
+
+.custom-cancel-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 12px; 
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-cancel-button:hover {
+  background-color: #c82333;
+}
+
+
+@media (max-width: 768px) {
+  .custom-edit-form-grid-expanded {
+    grid-template-columns: 1fr; 
   }
-  
-  .food-list h2 {
-    margin-bottom: 20px;
+
+  .custom-food-table td img {
+    width: 80px;
+    height: 80px;
   }
-  
-  .error {
-    color: red;
-  }
-  
-  .food-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .food-table th, .food-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .food-table th {
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  
-  .food-table td img {
-    width: 100px;
-    height: 100px; 
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .food-table button {
-    background-color: #f0f0f0;
-    border: none;
-    padding: 8px 12px;
-    margin: 4px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .food-table .edit-button {
-    background-color: #e0e0e0;
-  }
-  
-  .food-table .edit-button:hover {
-    background-color: #d0d0d0;
-  }
-  
-  .food-table .delete-button {
-    color: red;
-  }
-  
-  .food-table .delete-button:hover {
-    background-color: #f8d7da;
-  }
-  .edit-form .save-button {
-    background-color: #28a745;
-    color: #fff; 
-  }
-  
-  .edit-form .save-button:hover {
-    background-color: #218838; 
-  }
-  
-  .edit-form .cancel-button {
-    background-color: #dc3545; 
-    color: #fff; 
-  }
-  
-  .edit-form .cancel-button:hover {
-    background-color: #c82333; 
-  }
-  
+}

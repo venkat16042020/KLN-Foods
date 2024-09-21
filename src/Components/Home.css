@@ -1,118 +1,164 @@
-
 .home-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: black;
-    overflow: hidden;
-    padding: 20px;
-    box-sizing: border-box;
-    position: relative;
-  }
-  
-  .home-image {
-    width: 120vw;
-    max-height: 90vh;
-    height: auto;
-    border: 5px solid white;
-    transition: transform 0.3s ease;
-    object-fit: cover;
-  }
-  
-  .home-image:hover {
-    transform: scale(1.05);
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    z-index: 1;
-  }
-  
-  .title {
-    font-size: 3rem;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .quote {
-    font-size: 1.5rem;
-    color: white;
-    font-style: italic;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .categories-slider {
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .category-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.home-image-container {
+  position: relative;
+  width: 100%;
+}
+
+.home-image {
+  width: 100%;
+  height: auto;
+  border: 5px solid white;
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
+
+.home-image:hover {
+  transform: scale(1.05);
+}
+
+.home-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.home-title {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.home-quote {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.categories-slider {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.category-image {
+  width: 200px; 
+  height: 200px; 
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid black;
+  margin-bottom: 10px;
+}
+
+.category-image:hover {
+  transform: scale(1.1);
+}
+
+.category-name {
+  font-size: 1.5rem;
+  color: black;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
   .category-image {
-    width: 200px; 
-    height: 200px; 
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid white;
-    margin-bottom: 10px;
-  }
-  
-  .category-name {
-    font-size: 1.5rem;
-    color: white;
-    text-align: center;
-  }
-  
-  .category-description {
-    font-size: 1rem;
-    color: white;
-    text-align: center;
-  }
-  
-  
-  @media (max-width: 768px) {
-    .category-image {
-      width: 150px; 
-      height: 150px;
-    }
-  
-    .category-name {
-      font-size: 1.2rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .category-image {
-      width: 120px; 
-      height: 120px;
-    }
-  
-    .category-name {
-      font-size: 1rem;
-    }
-  
-    .title {
-      font-size: 2.5rem; 
-    }
-  
-    .quote {
-      font-size: 1.2rem; 
-    }
-  }
-  .category-image:hover {
-    transform: scale(1.1); 
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+    width: 150px;
+    height: 150px;
   }
 
-  
+  .category-name {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .category-name {
+    font-size: 1rem;
+  }
+
+  .home-title {
+    font-size: 2.5rem;
+  }
+
+  .home-quote {
+    font-size: 1.2rem;
+  }
+}
+
+.restaurants-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.restaurant-item {
+  text-align: center;
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: 2px solid black;
+}
+
+.restaurant-name {
+  font-size: 1.2rem;
+  color: black;
+  margin: 10px 0;
+}
+
+@media (max-width: 1024px) {
+  .restaurants-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .restaurants-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurants-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.top-items-text {
+  color: black; 
+  font-size: 2rem; 
+  margin: 20px 0; 
+}
+
+.category-link, .restaurant-link {
+  text-decoration: none;
+}
