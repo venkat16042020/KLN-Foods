@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css'; 
 import { Link } from 'react-router-dom';
 import './Home.css'; 
+import rating_star_icon from './rating_start_icon.png' ;
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -27,19 +28,16 @@ const Home = () => {
     fetchCategoriesAndRestaurants();
   }, []);
 
-
   const settings = {
+    dots: true,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    arrows: true,
-    dots: true,
-    autoplay: true, 
-    autoplaySpeed: 10000,
-    infinite: true,
-    pauseOnHover: true,
+    autoplay: true,
+    autoplaySpeed: 1000,
   };
-
+  
   return (
     <div className="home-container">
       <div className="home-image-container">
@@ -84,6 +82,11 @@ const Home = () => {
           >
             <div className="restaurant-item">
               <img src={restaurant.imageUrl} alt={restaurant.name} className="restaurant-image" />
+              <img 
+                src={rating_star_icon} 
+                alt="Rating Star" 
+                className="rating-star" 
+              />
               <h2 className="restaurant-name">{restaurant.name}</h2>
             </div>
           </Link>

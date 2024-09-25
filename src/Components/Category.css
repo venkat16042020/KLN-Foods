@@ -1,9 +1,10 @@
 
 .category-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  max-width: 900px;
+  margin: 20px auto; 
     border-radius: 8px;
     background-color: #f9f9f9;
   }
@@ -47,7 +48,7 @@
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 10px;
   }
   
   .category-container button:hover {

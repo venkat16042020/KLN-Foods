@@ -15,7 +15,8 @@ import SignUp from './SignUp';
 import Login from './Login';
 import AddRestaurant from './AddRestaurant';
 import './NavbarCom.css';
-import Feedback from './Feedback';
+// import Feedback from './Feedback';\
+import Payment from './Payment';
 
 const NavbarCom = () => {
   const { getCartItemCount } = useCart();
@@ -87,7 +88,7 @@ const NavbarCom = () => {
           <Route path="/cartdetails" element={<CartDetails />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="feedback" element={<Feedback/>} />
+          <Route path="payment" element={<Payment/>} />
         </Routes>
       </div>
     </div>

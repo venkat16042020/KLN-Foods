@@ -2,22 +2,25 @@
     padding: 20px;
     border-radius: 8px;
     border: 2px solid #ccc;
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 900px;
+    margin: 100px auto; /* Added top margin to create space between navbar and container */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 
 h2 {
     text-align: center;
 }
 
 .add-restaurant-form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
 }
 
 .form-field {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
@@ -26,27 +29,56 @@ label {
 }
 
 input, textarea {
-    padding: 10px;
+    height: 50px;
+    width: 100%;
     border-radius: 4px;
     border: 1px solid #ccc;
-    width: 100%;
+    font-size: 14px;
     box-sizing: border-box;
 }
 
 textarea {
-    resize: none; 
-    height: 100px;}
+    height: 50px;
+    resize: none;
+    grid-column: span 3;
+}
 
 .add-restaurant-buttons {
     display: flex;
     justify-content: space-between;
+    grid-column: span 3;
 }
 
 .submit-button, .clear-button {
-    padding: 10px 15px;
+    height: 50px;
     border-radius: 4px;
     border: none;
     cursor: pointer;
+    width: 23%;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.clear-button {
+    background-color: #f44336;
+    color: white;
+}
+.add-restaurant-buttons {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 10px; /* Smaller gap between the buttons */
+    grid-column: span 2; 
+}
+
+.submit-button, .clear-button {
+    height: 50px; /* Uniform button height */
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    width: 48%; /* Reduce width for buttons to make room for both */
 }
 
 .submit-button {

@@ -1,0 +1,91 @@
+.payment-container {
+  max-width: 400px; 
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f9f9f9; 
+}
+
+.payment-options, .upi-options {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  background-color: #fff; 
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px; 
+  border: 1px solid #eee;
+  border-radius: 6px; 
+  transition: background-color 0.3s ease;
+}
+
+.payment-option img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.payment-option button {
+  flex-grow: 1;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.payment-option:hover {
+  background-color: #e9ecef;
+}
+
+.qr-code {
+  margin-top: 20px;
+}
+
+.payment-button-container button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.payment-button-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.payment-container {
+  color: black;
+  margin-top: 40px; 
+}
+
+.payment-options button,
+.upi-options button {
+  color: black; 
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.payment-options button:hover,
+.upi-options button:hover {
+  background-color: black;
+  color: white;
+}
+
+h3, h4, p {
+  color: black; 
+}
