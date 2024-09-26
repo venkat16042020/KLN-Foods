@@ -13,7 +13,7 @@ import CartDetails from './CartDetails';
 import { useCart } from './CartContext';
 import SignUp from './SignUp';
 import Login from './Login';
-import AddRestaurant from './AddRestaurant';
+// import AddRestaurant from './AddRestaurant';
 import './NavbarCom.css';
 // import Feedback from './Feedback';\
 import Payment from './Payment';
@@ -45,7 +45,7 @@ const NavbarCom = () => {
               <Nav.Link as={Link} to="/category" className="category-link">Category</Nav.Link>
               <Nav.Link as={Link} to="/item" className="item-link">Item</Nav.Link>
               <Nav.Link as={Link} to="/foodlist" className="foodlist-link">FoodList</Nav.Link>
-              <Nav.Link as={Link} to="/addrestaurant" className="restaurant-link">Add Restaurant</Nav.Link>
+              {/* <Nav.Link as={Link} to="/addrestaurant" className="restaurant-link">Add Restaurant</Nav.Link> */}
               {/*  */}
             </Nav>
             <Nav className="ms-auto">
@@ -83,7 +83,7 @@ const NavbarCom = () => {
           <Route path="/category" element={<Category />} />
           <Route path="/item" element={<Item />} />
           <Route path="/foodlist" element={<FoodList />} />
-          <Route path="/addrestaurant" element={<AddRestaurant />} />
+          {/* <Route path="/addrestaurant" element={<AddRestaurant />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/cartdetails" element={<CartDetails />} />
           <Route path="/signup" element={<SignUp />} />

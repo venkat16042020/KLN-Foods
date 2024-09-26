@@ -5,27 +5,21 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css'; 
 import { Link } from 'react-router-dom';
 import './Home.css'; 
-import rating_star_icon from './rating_start_icon.png' ;
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    const fetchCategoriesAndRestaurants = async () => {
+    const fetchCategories = async () => {
       try {
-        const [categoriesResponse, restaurantsResponse] = await Promise.all([
-          axios.get('http://localhost:8080/categories/all'),
-          axios.get('http://localhost:8080/api/restaurants/all'),
-        ]);
+        const categoriesResponse = await axios.get('http://localhost:8080/categories/all');
         setCategories(categoriesResponse.data);
-        setRestaurants(restaurantsResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchCategoriesAndRestaurants();
+    fetchCategories();
   }, []);
 
   const settings = {
@@ -48,7 +42,7 @@ const Home = () => {
         />
         <div className="home-overlay">
           <h1 className="home-title">KLN Hotels</h1>
-          <p className="home-quote">"Good food is the foundation of genuine happiness."</p>
+          <p className="home-quote">Good food is the foundation of genuine happiness.</p>
         </div>
       </div>
 
@@ -69,28 +63,6 @@ const Home = () => {
             </Link>
           ))}
         </Slider>
-      </div>
-
-      <h2 className="top-items-text">Restaurants</h2>
-
-      <div className="restaurants-list">
-        {restaurants.map(restaurant => (
-          <Link
-            key={restaurant.id}
-            to={`/restaurant/${restaurant.id}`}
-            className="restaurant-link"
-          >
-            <div className="restaurant-item">
-              <img src={restaurant.imageUrl} alt={restaurant.name} className="restaurant-image" />
-              <img 
-                src={rating_star_icon} 
-                alt="Rating Star" 
-                className="rating-star" 
-              />
-              <h2 className="restaurant-name">{restaurant.name}</h2>
-            </div>
-          </Link>
-        ))}
       </div>
     </div>
   );
