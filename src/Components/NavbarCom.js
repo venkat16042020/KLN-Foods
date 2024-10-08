@@ -15,22 +15,22 @@ import SignUp from './SignUp';
 import Login from './Login';
 // import AddRestaurant from './AddRestaurant';
 import './NavbarCom.css';
-// import Feedback from './Feedback';\
 import Payment from './Payment';
+import Admin from './Admin';
+import Dashboard from './Dashboard';
 
 const NavbarCom = () => {
   const { getCartItemCount } = useCart();
   const navigate = useNavigate();
-  const [userName, setUserName] = useState(null); 
+  const [userName, setUserName] = useState(null);
 
   const handleLogout = () => {
-    setUserName(null); 
-    navigate('/login'); 
+    setUserName(null);
+    navigate('/login');
   };
 
-
   const handleLoginSuccess = (firstName) => {
-    setUserName(firstName); 
+    setUserName(firstName);
   };
 
   return (
@@ -45,8 +45,9 @@ const NavbarCom = () => {
               <Nav.Link as={Link} to="/category" className="category-link">Category</Nav.Link>
               <Nav.Link as={Link} to="/item" className="item-link">Item</Nav.Link>
               <Nav.Link as={Link} to="/foodlist" className="foodlist-link">FoodList</Nav.Link>
-              {/* <Nav.Link as={Link} to="/addrestaurant" className="restaurant-link">Add Restaurant</Nav.Link> */}
-              {/*  */}
+              <Nav.Link as={Link} to="/payment" className="payment-link">Payment</Nav.Link>
+              <Nav.Link as={Link} to="/admin" className="admin-link">Admin</Nav.Link>
+              <Nav.Link as={Link} to="/dashboard" className="dashboard-link">Dashboard</Nav.Link>
             </Nav>
             <Nav className="ms-auto">
               <Nav.Link>
@@ -56,7 +57,7 @@ const NavbarCom = () => {
                 <ShoppingCartIcon />
                 {getCartItemCount() > 0 && <span className="cart-count">{getCartItemCount()}</span>}
               </Nav.Link>
-              {!userName && ( 
+              {!userName && (
                 <>
                   <Nav.Link as={Link} to="/signup" className="signup-link">SignUp</Nav.Link>
                   <Nav.Link as={Link} to="/login" className="login-link">Login</Nav.Link>
@@ -83,12 +84,15 @@ const NavbarCom = () => {
           <Route path="/category" element={<Category />} />
           <Route path="/item" element={<Item />} />
           <Route path="/foodlist" element={<FoodList />} />
+          {/* Uncomment the line below if you have the AddRestaurant component */}
           {/* <Route path="/addrestaurant" element={<AddRestaurant />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/cartdetails" element={<CartDetails />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="payment" element={<Payment/>} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </div>
