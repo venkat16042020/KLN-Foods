@@ -1,141 +1,259 @@
-// import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect, useCallback } from 'react';
 // import { useLocation } from 'react-router-dom';
 // import { QRCodeSVG } from 'qrcode.react';
-// import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique transactionId
 // import './Payment.css';
-// import CreditCart from '../Images/CreditCart.jpg';
-// import UPI from '../Images/UPI.png';
 // import Phonepe from '../Images/Phonepe.png';
 // import Gpay from '../Images/Gpay.jpg';
 // import Paytm from '../Images/Paytm.jpg';
 // import Bhim from '../Images/Bhim.jpg';
+// import { usePaymentContext } from './PaymentContext';
+// import './Payment.css'
 
 // const Payment = () => {
 //   const location = useLocation();
-//   const { totalAmount } = location.state;
-
-//   const [paymentMethod, setPaymentMethod] = useState('');
+//   const { totalAmount = 0 } = location.state || {};
+//   const { setTransactionId } = usePaymentContext();
+//   // eslint-disable-next-line
 //   const [upiApp, setUpiApp] = useState('');
-//   const [paymentStatus, setPaymentStatus] = useState(null); // To store payment status
-//   const [qrExpired, setQrExpired] = useState(false); // To track QR code expiration
+//   const [paymentProcessed, setPaymentProcessed] = useState(false);
+//   const [paymentStatus, setPaymentStatus] = useState(null);
+//   const [transactionId, setLocalTransactionId] = useState(null);
 
-//   useEffect(() => {
-//     let timer;
-//     if (upiApp) {
-//       // Set a timer for 10 minutes (600000 milliseconds)
-//       timer = setTimeout(() => {
-//         setQrExpired(true);
-//       }, 600000);
-//     }
+//   const generateTransactionId = useCallback(() => {
+//     const newTransactionId = `KLN${Math.floor(1000000 + Math.random() * 9000000)}`;
+//     setTransactionId(newTransactionId);
+//     setLocalTransactionId(newTransactionId);
+//     return newTransactionId;
+//   }, [setTransactionId]);
 
-//     return () => {
-//       clearTimeout(timer); // Clear timer on unmount or when upiApp changes
-//     };
-//   }, [upiApp]);
-
-//   const processPayment = () => {
-//     // Generate a unique transactionId using uuid
-//     const transactionId = uuidv4(); // Generates a unique ID
-
+//   const processPayment = useCallback(async (app) => {
+//     const newTransactionId = generateTransactionId();
 //     const paymentData = {
-//       transactionId: transactionId, // Dynamic unique transactionId
-//       totalAmount: totalAmount,
-//       paymentType: 'upi', // Assuming UPI is the selected payment method
-//       orderStatus: "Pending"
+//       transactionId: newTransactionId,
+//       totalAmount,
+//       status: 'Pending',
 //     };
 
-
-//     fetch('http://localhost:8080/api/payment/process', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(paymentData),
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         // Check if the payment is successful or failed based on response
-//         if (data.status === 'success') {
-//           setPaymentStatus('success');
-//         } else {
-//           setPaymentStatus('failed');
-//         }
-//       })
-//       .catch(error => {
-//         console.error('Error:', error);
-//         setPaymentStatus('failed');
+//     try {
+//       const response = await fetch('http://localhost:8080/payments/add', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(paymentData),
 //       });
-//   };
 
-//   // Call processPayment when the QR code is generated
-//   useEffect(() => {
-//     if (upiApp && !qrExpired) {
-//       processPayment();
+//       if (!response.ok) {
+//         throw new Error('Failed to initiate payment: ' + response.statusText);
+//       }
+
+//       console.log('Payment request sent successfully:', await response.json());
+//       setUpiApp(app);
+//       setPaymentProcessed(true);
+//     } catch (error) {
+//       console.error('Error processing payment:', error);
+//       alert('Error processing payment: ' + error.message);
 //     }
-//   }, [upiApp, qrExpired]); // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [generateTransactionId, totalAmount]);
+
+//   useEffect(() => {
+//     let interval;
+//     if (paymentProcessed && transactionId) {
+//       interval = setInterval(async () => {
+//         try {
+//           const response = await fetch(`http://localhost:8080/payments/transaction/${transactionId}`);
+//           if (!response.ok) {
+//             throw new Error('Failed to fetch payment status');
+//           }
+//           const data = await response.json();
+//           setPaymentStatus(data.status);
+//           if (data.status !== 'Pending') {
+//             clearInterval(interval);
+//           }
+//         } catch (error) {
+//           console.error('Error fetching payment status:', error);
+//         }
+//       }, 3000);
+
+//       return () => clearInterval(interval);
+//     }
+//   }, [paymentProcessed, transactionId]);
 
 //   return (
 //     <div className="payment-container">
-//       {/* Payment methods */}
-//       {!paymentMethod && (
-//         <div className="payment-options">
-//           <div className="payment-option">
-//             <img src={CreditCart} alt="Credit/Debit Card" />
-//             <button onClick={() => setPaymentMethod('card')}>Credit/Debit Card</button>
+//       <h2>Payment Page</h2>
+//       <p>Total Amount: ₹{totalAmount.toFixed(2)}</p>
+
+//       {!paymentProcessed && !paymentStatus && (
+//         <>
+//           <h3>Select Payment Method</h3>
+//           <div className="upi-options">
+//             <div className="payment-option">
+//               <img src={Phonepe} alt="PhonePe" />
+//               <button onClick={() => processPayment('PhonePe')}>PhonePe</button>
+//             </div>
+//             <div className="payment-option">
+//               <img src={Gpay} alt="GPay" />
+//               <button onClick={() => processPayment('GPay')}>GPay</button>
+//             </div>
+//             <div className="payment-option">
+//               <img src={Paytm} alt="Paytm" />
+//               <button onClick={() => processPayment('Paytm')}>Paytm</button>
+//             </div>
+//             <div className="payment-option">
+//               <img src={Bhim} alt="BHIM" />
+//               <button onClick={() => processPayment('BHIM')}>BHIM</button>
+//             </div>
 //           </div>
-//           <div className="payment-option">
-//             <img src={UPI} alt="UPI" />
-//             <button onClick={() => setPaymentMethod('upi')}>UPI</button>
-//           </div>
-//           <div className="payment-option">
-//             <button onClick={() => setPaymentMethod('bankTransfer')}>Bank Transfer</button>
-//           </div>
-//         </div>
+//         </>
 //       )}
 
-//       {/* UPI options */}
-//       {paymentMethod === 'upi' && !upiApp && (
-//         <div className="upi-options">
-//           <div className="payment-option">
-//             <img src={Phonepe} alt="PhonePe" />
-//             <button onClick={() => setUpiApp('PhonePe')}>PhonePe</button>
-//           </div>
-//           <div className="payment-option">
-//             <img src={Gpay} alt="GPay" />
-//             <button onClick={() => setUpiApp('GPay')}>GPay</button>
-//           </div>
-//           <div className="payment-option">
-//             <img src={Paytm} alt="Paytm" />
-//             <button onClick={() => setUpiApp('Paytm')}>Paytm</button>
-//           </div>
-//           <div className="payment-option">
-//             <img src={Bhim} alt="BHIM" />
-//             <button onClick={() => setUpiApp('BHIM')}>BHIM</button>
-//           </div>
-//         </div>
-//       )}
-
-//       {/* Show QR code for UPI */}
-//       {upiApp && !qrExpired && (
+//       {paymentProcessed && (
 //         <div className="qr-code">
-//           <QRCodeSVG 
-//             value={`upi://pay?pa=prabhudasparusu@ybl&pn=KLN Food Court&mc=1234&tid=202409251234&tr=${uuidv4()}&am=${totalAmount}&cu=INR&url=https://yourwebsite.com`} 
-//           />
-//           <p>UPI ID: prabhudasparusu@ybl</p>
-//           <p>Please scan the QR code to make your payment.</p>
+//           <h3>Scan the QR Code to Pay</h3>
+//           <QRCodeSVG value={`upi://pay?pa=example@upi&pn=KLNFoodCourt&mc=1234&tid=${transactionId}&amount=${totalAmount}&tn=Payment for Order`} />
 //         </div>
 //       )}
 
-//       {/* Show expired message if QR code is expired */}
-//       {qrExpired && (
-//         <p style={{ color: 'red' }}>The QR code has expired. Please refresh to get a new QR code.</p>
+//       {paymentStatus && (
+//         <div className="payment-status">
+//           <h3>Payment Status: {paymentStatus}</h3>
+//         </div>
 //       )}
-
-//       {/* Display payment success or failure */}
-//       {paymentStatus === 'success' && <p style={{ color: 'green' }}>Payment Successful!</p>}
-//       {paymentStatus === 'failed' && <p style={{ color: 'red' }}>Payment Failed. Please try again.</p>}
 //     </div>
 //   );
 // };
 
 // export default Payment;
+
+
+import React, { useState, useEffect,useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
+import { QRCodeSVG } from 'qrcode.react';
+import './Payment.css'; // Ensure you have this CSS file for styles
+import Phonepe from '../Images/Phonepe.png';
+import Gpay from '../Images/Gpay.jpg';
+import Paytm from '../Images/Paytm.jpg';
+import Bhim from '../Images/Bhim.jpg';
+import { usePaymentContext } from './PaymentContext';
+
+const Payment = () => {
+  const location = useLocation();
+  const { totalAmount = 0 } = location.state || {};
+  const { setTransactionId } = usePaymentContext();
+  
+  // State variables
+  const [paymentProcessed, setPaymentProcessed] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [transactionId, setLocalTransactionId] = useState(null);
+
+  // Function to generate a unique transaction ID
+  const generateTransactionId = useCallback(() => {
+    const newTransactionId = `KLN${Math.floor(1000000 + Math.random() * 9000000)}`;
+    setTransactionId(newTransactionId);
+    setLocalTransactionId(newTransactionId);
+    return newTransactionId;
+  }, [setTransactionId]);
+
+  // Function to process payment based on selected app
+  const processPayment = useCallback(async (app) => {
+    const newTransactionId = generateTransactionId();
+    const paymentData = {
+      transactionId: newTransactionId,
+      totalAmount,
+      status: 'Pending',
+    };
+
+    try {
+      const response = await fetch('http://localhost:8080/payments/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to initiate payment: ' + response.statusText);
+      }
+
+      console.log('Payment request sent successfully:', await response.json());
+      setPaymentProcessed(true);
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      alert('Error processing payment: ' + error.message);
+    }
+  }, [generateTransactionId, totalAmount]);
+
+  // Polling for payment status
+  useEffect(() => {
+    let interval;
+    if (paymentProcessed && transactionId) {
+      interval = setInterval(async () => {
+        try {
+          const response = await fetch(`http://localhost:8080/payments/transaction/${transactionId}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch payment status');
+          }
+          const data = await response.json();
+          setPaymentStatus(data.status);
+          if (data.status !== 'Pending') {
+            clearInterval(interval); // Stop polling when payment status is not pending
+          }
+        } catch (error) {
+          console.error('Error fetching payment status:', error);
+        }
+      }, 3000); // Poll every 3 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [paymentProcessed, transactionId]);
+
+  return (
+    <div className="payment-container">
+      <h2>Payment Page</h2>
+      <p>Total Amount: ₹{totalAmount.toFixed(2)}</p>
+
+      {!paymentProcessed && !paymentStatus && (
+        <>
+          <h3>Select Payment Method</h3>
+          <div className="upi-options">
+            <div className="payment-option">
+              <img src={Phonepe} alt="PhonePe" />
+              <button onClick={() => processPayment('PhonePe')}>PhonePe</button>
+            </div>
+            <div className="payment-option">
+              <img src={Gpay} alt="GPay" />
+              <button onClick={() => processPayment('GPay')}>GPay</button>
+            </div>
+            <div className="payment-option">
+              <img src={Paytm} alt="Paytm" />
+              <button onClick={() => processPayment('Paytm')}>Paytm</button>
+            </div>
+            <div className="payment-option">
+              <img src={Bhim} alt="BHIM" />
+              <button onClick={() => processPayment('BHIM')}>BHIM</button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {paymentProcessed && (
+        <div className="qr-code">
+          <h3>Scan the QR Code to Pay</h3>
+          <QRCodeSVG 
+            value={`upi://pay?pa=example@upi&pn=KLNFoodCourt&mc=1234&tid=${transactionId}&amount=${totalAmount}&tn=Payment for Order`} 
+          />
+        </div>
+      )}
+
+      {paymentStatus && (
+        <div className="payment-status">
+          <h3>Payment Status: {paymentStatus}</h3>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Payment;
+
+
+
+

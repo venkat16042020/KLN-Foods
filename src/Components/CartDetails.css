@@ -1,91 +1,103 @@
 .cart-details-container {
-  display: flex; 
-  gap: 20px; 
-  padding: 10px;
-  box-sizing: border-box;
+  display: flex; /* Use flexbox for layout */
+  height: 100vh; /* Full height of the viewport */
 }
 
-.cart-details, .address-form {
-  flex: 1; 
-  padding: 10px;
-  border: 1px solid #ddd; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+.cart-details {
+  width: 25%; /* 25% of the page width for cart */
+  margin: 0; /* No margin */
+  padding: 10px; /* Padding for internal spacing */
+  overflow-y: auto; /* Allow scrolling for overflow items */
+  border-right: 1px solid #ccc; /* Optional border for separation */
 }
 
-.cart-table {
-  width: 100%; 
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.cart-table th, .cart-table td {
-  border: 1px solid #ddd;
-  padding: 6px;
-  text-align: left;
-}
-
-.cart-table td {
-  vertical-align: top;
-}
-
-.address-form h2 {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-
-.address-form form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 10px;
-}
-
-.address-form input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.place-order-container {
-  margin-top: 20px; 
-  text-align: left; 
-}
-
-.place-order-container button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-}
-
-.place-order-container button:hover {
-  background-color: #0056b3;
-}
-.payment-review-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
+.cart-item {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  z-index: 1000;
+  justify-content: space-between; /* Align item name and price */
+  align-items: center; /* Center vertically */
+  margin-bottom: 10px; /* Space between items */
 }
 
-.modal-actions {
-  margin-top: 20px;
+.cart-item p {
+  display: flex;
+  align-items: center; /* Center items */
+  margin: 0; /* No margin */
 }
 
-.modal-actions button {
-  margin: 0 10px;
+.cart-item span {
+  margin: 0 10px; /* Gap between buttons and quantity */
+}
+
+.price {
+  margin-left: auto; /* Align price to the right */
+}
+
+.address-selection {
+  width: 75%; /* 75% of the page width for address section */
+  padding: 10px; /* Padding for internal spacing */
+  display: flex;
+  flex-direction: column; /* Stack address items vertically */
+  height: 100%; /* Full height of the container */
+  overflow-y: auto; /* Allow scrolling for overflow items */
+}
+
+.address-grid {
+  display: grid; /* Use grid for address items */
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 10px; /* Space between address items */
+}
+
+.address-item {
+  border: 1px solid #ccc; /* Border for visibility */
+  padding: 10px; /* Padding inside address item */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.selected {
+  background-color: #f0f8ff; /* Highlight selected address */
+}
+
+.address-buttons {
+  display: flex; /* Use flex for button alignment */
+  justify-content: space-between; /* Space buttons evenly */
+}
+
+.new-address-form {
+  display: flex; /* Use flexbox for form layout */
+  flex-wrap: wrap; /* Allow wrapping of input fields */
+  gap: 10px; /* Space between input fields */
+}
+
+.new-address-form input {
+  flex: 1; /* Allow inputs to grow */
+  min-width: 150px; /* Minimum width for inputs */
+}
+
+.process-pay-button {
+  width: 100%; /* Full width for button */
+  padding: 10px; /* Padding for button */
+  margin-top: auto; /* Push button to the bottom */
+  background-color: #007bff; /* Button color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor */
+}
+
+.process-pay-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+.process-pay-button {
+  width: auto; /* Change to auto width */
+  max-width: 200px; /* Set a max width for the button */
+  padding: 10px 20px; /* Adjust padding for a better size */
+  margin: 20px auto 0; /* Center the button horizontally and add top margin */
+  background-color: #007bff; /* Button color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor */
+  display: block; /* Ensure it behaves as a block element for centering */
+}
+
+.process-pay-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }

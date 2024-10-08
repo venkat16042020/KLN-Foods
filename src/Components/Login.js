@@ -36,9 +36,15 @@ const Login = ({ onLoginSuccess }) => {
       if (matchedUser) {
         setMessage("");
         logIn(matchedUser.firstName);
-        onLoginSuccess(matchedUser.firstName);
+        onLoginSuccess(matchedUser.firstName, matchedUser.role); // Pass role to parent component
         setIsLoggedIn(true);
-        navigate("/home");
+
+        // Navigate based on the user's role
+        if (matchedUser.role === 'ADMIN') {
+          navigate("/admin");  // Redirect Admin to Admin Panel
+        } else if (matchedUser.role === 'CUSTOMER') {
+          navigate("/home");  // Redirect Customer to Home
+        }
       } else {
         setMessage("Incorrect email or password.");
       }
@@ -47,14 +53,6 @@ const Login = ({ onLoginSuccess }) => {
       setMessage("An error occurred while logging in. Please try again later.");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleImageClick = () => {
-    if (!isLoggedIn) {
-      setMessage("Please log in to view this content.");
-    } else {
-      navigate("/home");
     }
   };
 
@@ -67,15 +65,15 @@ const Login = ({ onLoginSuccess }) => {
   return (
     <div className="page-container">
       <div className="left-container">
-        <div className="round-link" onClick={handleImageClick}>
+        <div className="round-link" onClick={() => navigate("/home")}>
           <img src={Biryani} alt="Biryani" />
           <p><b>Biryani</b></p>
         </div>
-        <div className="round-link" onClick={handleImageClick}>
+        <div className="round-link" onClick={() => navigate("/home")}>
           <img src={Tiffin} alt="Tiffin" />
           <p><b>Tiffins</b></p>
         </div>
-        <div className="round-link" onClick={handleImageClick}>
+        <div className="round-link" onClick={() => navigate("/home")}>
           <img src={Veg} alt="Veg" />
           <p><b>Veg</b></p>
         </div>
@@ -139,3 +137,4 @@ const Login = ({ onLoginSuccess }) => {
 };
 
 export default Login;
+

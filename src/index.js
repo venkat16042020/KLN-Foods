@@ -5,14 +5,18 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { CartProvider } from './Components/CartContext';
 import { AuthProvider } from './Components/AuthContext';
+import { PaymentProvider } from './Components/PaymentContext';  // Import PaymentProvider
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <AuthProvider>
-      <CartProvider>
-        <App />
-      </CartProvider>
-    </AuthProvider>
-  </BrowserRouter>
+  <PaymentProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  </PaymentProvider>
 );
