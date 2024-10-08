@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import { useCart } from './CartContext';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './Cart.css';  
+import './Cart.css';
 
 const Cart = () => {
   const [items, setItems] = useState([]);
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
-  const { addItemToCart, getCartItems, removeItemFromCart } = useCart();
+  const { addItemToCart, getCartItems, removeItemFromCart } = useCart(); 
 
   useEffect(() => {
     axios.get('http://localhost:8080/foods/all')
@@ -37,7 +36,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-container">
+    <div>
       <h2>Items in {category}</h2>
       <div className="cart-items">
         {items.map(item => (
@@ -50,7 +49,7 @@ const Cart = () => {
               {cartItems.find(cartItem => cartItem.id === item.id) ? (
                 <div className="quantity-controls">
                   <button onClick={() => handleDecrease(item.id)}>-</button>
-                  <span className="mx-2">{cartItems.find(cartItem => cartItem.id === item.id).quantity}</span>
+                  <span>{cartItems.find(cartItem => cartItem.id === item.id).quantity}</span>
                   <button onClick={() => handleIncrease(item.id)}>+</button>
                 </div>
               ) : (

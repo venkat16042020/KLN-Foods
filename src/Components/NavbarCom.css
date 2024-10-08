@@ -1,12 +1,35 @@
+
 .custom-navbar {
-  background-color: yellow; /* Set the background color to yellow */
-  color: black; /* Ensure text is readable with a darker color */
+    background-color: yellow !important; 
+    color: black; 
 }
 
-.navbar-brand, .nav-link {
-  color: black !important; /* Make sure the brand and links are visible */
+
+.custom-navbar .navbar-dark .navbar-nav .nav-link {
+    color: red; 
+    font-weight: bold; 
 }
 
-.navbar-toggler-icon {
-  background-color: black; /* Adjust the navbar toggle icon for visibility */
+
+
+
+
+.custom-navbar .nav-link svg {
+    color: red; 
+    font-size: 24px; 
+}
+
+
+body {
+    margin: 0;
+    background-color: white; 
+    color: black; 
+}
+
+
+.main-content {
+    background-color: white;
+    color: black; 
+    min-height: 100vh; 
+    padding: 20px; 
 }
