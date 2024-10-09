@@ -23,16 +23,16 @@ const Cart = () => {
 
   const cartItems = getCartItems();
 
-  const handleIncrease = (itemId) => {
-    addItemToCart(cartItems.find(item => item.id === itemId), 1);
-  };
-
-  const handleDecrease = (itemId) => {
-    removeItemFromCart(itemId);
-  };
-
   const handleAddToCart = (item) => {
     addItemToCart(item, 1);
+  };
+
+  const handleQuantityChange = (itemId, change) => {
+    if (change === -1) {
+      removeItemFromCart(itemId);
+    } else {
+      addItemToCart(cartItems.find(item => item.id === itemId), 1);
+    }
   };
 
   return (
@@ -48,12 +48,12 @@ const Cart = () => {
               <p>GST: ₹{item.totalGST}</p>
               {cartItems.find(cartItem => cartItem.id === item.id) ? (
                 <div className="quantity-controls">
-                  <button onClick={() => handleDecrease(item.id)}>-</button>
+                  <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
                   <span>{cartItems.find(cartItem => cartItem.id === item.id).quantity}</span>
-                  <button onClick={() => handleIncrease(item.id)}>+</button>
+                  <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
                 </div>
               ) : (
-                <button onClick={() => handleAddToCart(item)} className="add-to-cart">
+                <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
                   Add to Cart
                 </button>
               )}

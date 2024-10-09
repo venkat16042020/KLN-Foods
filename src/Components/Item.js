@@ -5,11 +5,11 @@ import './Item.css';
 const Item = () => {
   const [formData, setFormData] = useState({
     name: '',
-    price: 0,
-    stateGST: 0,
-    centralGST: 0,
-    totalGST: 0,
-    totalPrice: 0,
+    price: '',
+    stateGST: '',
+    centralGST: '',
+    totalGST: '',
+    totalPrice: '',
     description: '',
     imageUrl: '',
     categoryName: ''
@@ -37,6 +37,7 @@ const Item = () => {
     setFormData((prevFormData) => {
       const updatedData = { ...prevFormData, [name]: value };
 
+      // Calculate totalGST and totalPrice only if price and GST values are valid numbers
       const stateGST = parseFloat(updatedData.stateGST) || 0;
       const centralGST = parseFloat(updatedData.centralGST) || 0;
       const price = parseFloat(updatedData.price) || 0;
@@ -63,11 +64,11 @@ const Item = () => {
       setMessage('Food item added successfully!');
       setFormData({
         name: '',
-        price: 0,
-        stateGST: 0,
-        centralGST: 0,
-        totalGST: 0,
-        totalPrice: 0,
+        price: '',
+        stateGST: '',
+        centralGST: '',
+        totalGST: '',
+        totalPrice: '',
         description: '',
         imageUrl: '',
         categoryName: ''
@@ -81,11 +82,11 @@ const Item = () => {
   const handleClear = () => {
     setFormData({
       name: '',
-      price: 0,
-      stateGST: 0,
-      centralGST: 0,
-      totalGST: 0,
-      totalPrice: 0,
+      price: '',
+      stateGST: '',
+      centralGST: '',
+      totalGST: '',
+      totalPrice: '',
       description: '',
       imageUrl: '',
       categoryName: ''

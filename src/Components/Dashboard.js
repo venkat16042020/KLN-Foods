@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -21,4 +21,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard; 
