@@ -1,5 +1,3 @@
-/* Admin.css */
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
@@ -7,7 +5,7 @@ body {
   padding: 0;
 }
 
-.admin-container {
+.admin-management-container {
   max-width: 800px;
   margin: 20px auto;
   padding: 30px;
@@ -16,45 +14,49 @@ body {
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
-h2, h3 {
+.admin-title,
+.admin-subtitle {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
 }
 
-table {
+.admin-payments-table {
   width: 100%;
   margin: 20px 0;
   border-collapse: collapse;
 }
 
-th, td {
+.admin-payments-table th,
+.admin-payments-table td {
   padding: 15px 20px;
   border: 2px solid #ddd;
   text-align: center;
 }
 
-th {
+.admin-payments-table th {
   background-color: #f4f4f4;
   font-weight: bold;
 }
 
-td {
+.admin-payments-table td {
   background-color: #fff;
 }
 
-tr:nth-child(even) {
+.admin-payments-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-form {
+.admin-status-update-form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-input[type="text"], select, button {
+.admin-input,
+.admin-select,
+.admin-submit-button {
   display: block;
   margin: 10px auto;
   padding: 15px;
@@ -64,7 +66,7 @@ input[type="text"], select, button {
   font-size: 16px;
 }
 
-button {
+.admin-submit-button {
   width: 30%;
   background-color: #4CAF50;
   color: white;
@@ -73,16 +75,16 @@ button {
   padding: 15px;
 }
 
-button:hover {
+.admin-submit-button:hover {
   background-color: #45a049;
 }
 
-button:disabled {
+.admin-submit-button:disabled {
   background-color: #ddd;
   cursor: not-allowed;
 }
 
-p {
+.admin-error-message {
   text-align: center;
   color: red;
 }

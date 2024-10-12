@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import { useCart } from './CartContext';
-import './Cart.css';
+import './Cart.css'; // Ensure this imports the correct CSS file
 
 const Cart = () => {
   const [items, setItems] = useState([]);
@@ -36,11 +36,11 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="cart-container">
       <h2>Items in {category}</h2>
-      <div className="cart-items">
+      <div className="cart-items-wrapper">
         {items.map(item => (
-          <div key={item.id} className="cart-item">
+          <div key={item.id} className="cart-item-card">
             <img src={item.imageUrl} alt={item.name} className="item-image" />
             <div className="item-details">
               <h3>{item.name}</h3>

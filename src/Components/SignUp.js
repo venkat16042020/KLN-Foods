@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import "./User.css"; 
-
+import './Singup.css'
 const Signup = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -52,7 +51,7 @@ const Signup = () => {
     }
 
     try {
-      const apiUrl = "http://localhost:8080/users/create";
+      const apiUrl = "http://localhost:8080/users/create"; // Replace with your backend API
       await axios.post(apiUrl, { firstName, lastName, email, password, role });
       
       handleClear();
@@ -60,27 +59,54 @@ const Signup = () => {
       navigate("/login");
     } catch (error) {
       console.error("Error creating user:", error);
-      setError("An error occurred during sign up. Please try again.");
+      if (error.response) {
+        setError(error.response.data.message || "An error occurred during sign up. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
   return (
     <div className="signup-container">
       <h5>Signup Here</h5>
-      <form onSubmit={handleSubmit}>
-        {["firstName", "lastName", "email", "password"].map((field) => (
-          <div className="form-group" key={field}>
-            <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1).replace("Name", " Name") + ":"}</label>
-            <input
-              type={field === "email" ? "email" : "text"}
-              id={field}
-              name={field}
-              value={formData[field]}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        ))}
+      <form onSubmit={handleSubmit} className="signup-form">
+        <div className="form-row">
+          {["firstName", "lastName"].map((field) => (
+            <div className="form-group" key={field}>
+              <label htmlFor={field}>
+                {field.charAt(0).toUpperCase() + field.slice(1).replace("Name", " Name") + ":"}
+              </label>
+              <input
+                type="text"
+                id={field}
+                name={field}
+                value={formData[field]}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+          ))}
+        </div>
+        <div className="form-row">
+          {["email", "password"].map((field) => (
+            <div className="form-group" key={field}>
+              <label htmlFor={field}>
+                {field.charAt(0).toUpperCase() + field.slice(1) + ":"}
+              </label>
+              <input
+                type={field === "email" ? "email" : "password"}
+                id={field}
+                name={field}
+                value={formData[field]}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+          ))}
+        </div>
         <div className="form-group">
           <label htmlFor="role">Role:</label>
           <select
@@ -89,6 +115,7 @@ const Signup = () => {
             value={formData.role}
             onChange={handleInputChange}
             required
+            className="input-field"
           >
             <option value="CUSTOMER">Customer</option>
             <option value="ADMIN">Admin</option>
@@ -98,7 +125,7 @@ const Signup = () => {
           <button type="submit">Submit</button>
           <button type="button" onClick={handleClear}>Clear</button>
         </div>
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
       </form>
       <p>Already have an account? <Link to="/login">Login here</Link></p>
     </div>

@@ -263,7 +263,7 @@
 
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { useCart } from './CartContext'; // Adjust the import path according to your structure
+import { useCart } from './CartContext'; 
 import { useNavigate } from 'react-router-dom';
 import './CartDetails.css';
 
@@ -274,7 +274,7 @@ const CartDetails = () => {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [showNewAddressFields, setShowNewAddressFields] = useState(false); // State to toggle new address fields
+  const [showNewAddressFields, setShowNewAddressFields] = useState(false);
   const [newAddress, setNewAddress] = useState({
     houseNumber: '',
     landMark: '',
@@ -285,7 +285,6 @@ const CartDetails = () => {
     phoneNumber: '',
   });
 
-  // Fetch cart items and saved addresses
   useEffect(() => {
     const cartItems = getCartItems();
     setItems(cartItems);
@@ -293,7 +292,6 @@ const CartDetails = () => {
     setAddresses(savedAddresses);
   }, [getCartItems]);
 
-  // Calculate total price and total GST
   const { totalPrice, totalGST } = useMemo(() => {
     let totalPrice = 0;
     let totalGST = 0;
@@ -309,7 +307,6 @@ const CartDetails = () => {
 
   const totalAmount = (totalPrice + totalGST).toFixed(2);
 
-  // Handle quantity changes
   const handleQuantityChange = (id, change) => {
     const updatedItems = items.map(item =>
       item.id === id ? { ...item, quantity: Math.max(0, item.quantity + change) } : item
@@ -319,33 +316,71 @@ const CartDetails = () => {
     updateItemQuantity(id, updatedItem ? updatedItem.quantity : 0);
   };
 
-  // Handle order placement
-  const handlePlaceOrder = () => {
+  const handleProcessToPay = () => {
+    if (items.length === 0) {
+      alert('Please select items before proceeding to payment.');
+      return;
+    }
+
     if (!selectedAddress) {
       alert('Please select an address.');
       return;
     }
 
-    // Log values to debug
     console.log('Total Price:', totalPrice);
     console.log('Total GST:', totalGST);
     console.log('Total Amount:', totalAmount);
 
-    // Pass totalAmount to Payment component
     navigate('/payment', { state: { items, address: selectedAddress, totalAmount } });
   };
 
-  // Handle address saving
   const handleSaveAddress = () => {
+    const { houseNumber, landMark, street, city, state, zipCode, phoneNumber } = newAddress;
+
+    // Validate address fields
+    if (!houseNumber || !landMark || !street || !city || !state || !zipCode || !phoneNumber) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    const isDuplicate = addresses.some(addr => addr.phoneNumber === phoneNumber && !isEditing);
+    if (isDuplicate) {
+      alert('This address already exists!');
+      return;
+    }
+
     const updatedAddresses = isEditing
-      ? addresses.map(addr => (addr.phoneNumber === newAddress.phoneNumber ? newAddress : addr))
+      ? addresses.map(addr => (addr.phoneNumber === phoneNumber ? newAddress : addr))
       : [...addresses, newAddress];
 
     localStorage.setItem('savedAddresses', JSON.stringify(updatedAddresses));
     setAddresses(updatedAddresses);
     alert(`${isEditing ? 'Address updated' : 'Address saved'} successfully!`);
 
-    // Reset newAddress and exit editing mode
+    resetNewAddressFields();
+  };
+
+  const handleDeleteAddress = (phoneNumber) => {
+    const updatedAddresses = addresses.filter(addr => addr.phoneNumber !== phoneNumber);
+    localStorage.setItem('savedAddresses', JSON.stringify(updatedAddresses));
+    setAddresses(updatedAddresses);
+    alert('Address deleted successfully!');
+    if (selectedAddress && selectedAddress.phoneNumber === phoneNumber) {
+      setSelectedAddress(null);
+    }
+  };
+
+  const handleSelectAddress = (address) => {
+    setSelectedAddress(address);
+  };
+
+  const handleEditAddress = (address) => {
+    setNewAddress(address);
+    setIsEditing(true);
+    setShowNewAddressFields(true);
+  };
+
+  const resetNewAddressFields = () => {
     setNewAddress({
       houseNumber: '',
       landMark: '',
@@ -356,35 +391,28 @@ const CartDetails = () => {
       phoneNumber: '',
     });
     setIsEditing(false);
-    setShowNewAddressFields(false); // Hide new address fields
+    setShowNewAddressFields(false);
   };
 
-  // Handle address deletion
-  const handleDeleteAddress = (phoneNumber) => {
-    const updatedAddresses = addresses.filter(addr => addr.phoneNumber !== phoneNumber);
-    localStorage.setItem('savedAddresses', JSON.stringify(updatedAddresses));
-    setAddresses(updatedAddresses);
-    alert('Address deleted successfully!');
-  };
-
-  // Handle address selection
-  const handleSelectAddress = (address) => {
-    setSelectedAddress(address);
+  // eslint-disable-next-line
+  const handleAddNewAddress = () => {
+    setShowNewAddressFields(true);
+    resetNewAddressFields(); 
   };
 
   return (
     <div className="cart-details-container">
-      <div className="cart-details">
+      <div className="left-section">
         <h2>Cart Items</h2>
         {items.length > 0 ? (
-          items.map((item) => (
-            <div key={item.id} className="cart-item">
-              <p>{item.name}</p>
-              <p>₹{parseFloat(item.price).toFixed(2)}</p>
-              <div className="quantity-controls">
-                <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
-                <span className="quantity-display">{item.quantity}</span>
-                <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+          items.map(({ id, name, price, quantity }) => (
+            <div key={id} className="cart-item">
+              <p>{name}</p>
+              <p>₹{parseFloat(price).toFixed(2)}</p>
+              <div className="cart-quantity-controls">
+                <button className="cart-quantity-button" onClick={() => handleQuantityChange(id, -1)}>-</button>
+                <span className="cart-quantity-display">{quantity}</span>
+                <button className="cart-quantity-button" onClick={() => handleQuantityChange(id, 1)}>+</button>
               </div>
               <hr />
             </div>
@@ -399,63 +427,134 @@ const CartDetails = () => {
         </div>
       </div>
 
-      <div className="address-details">
+      <div className="right-section">
         <h2>Address Details</h2>
         <div className="address-list">
-          {addresses.map((address, index) => (
-            <div key={index} className="address-item">
+          {addresses.map(address => (
+            <div key={address.phoneNumber} className="address-item">
               <p>
                 {address.houseNumber}, {address.landMark}, {address.street}, {address.city}, {address.state}, {address.zipCode}, {address.phoneNumber}
               </p>
-              <button onClick={() => handleSelectAddress(address)}>
-                {selectedAddress === address ? 'Selected' : 'Select'}
-              </button>
-              <button onClick={() => {
-                setNewAddress(address);
-                setIsEditing(true);
-              }}>Edit</button>
-              <button onClick={() => handleDeleteAddress(address.phoneNumber)}>Delete</button>
+              <div className="address-buttons">
+                <button 
+                  className="address-select-button"
+                  onClick={() => handleSelectAddress(address)}
+                >
+                  {selectedAddress === address ? 'Selected' : 'Select'}
+                </button>
+                <button 
+                  className="address-edit-button"
+                  onClick={() => handleEditAddress(address)}
+                >
+                  Edit
+                </button>
+                <button 
+                  className="address-delete-button"
+                  onClick={() => handleDeleteAddress(address.phoneNumber)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
 
         {showNewAddressFields && (
           <form className="new-address-form">
-            {Object.keys(newAddress).map((key, index) => (
-              <div key={key} className="input-group">
-                <input
-                  type="text"
-                  placeholder={key.replace(/([A-Z])/g, ' ')}
-                  value={newAddress[key]}
-                  onChange={(e) => setNewAddress(prev => ({ ...prev, [key]: e.target.value }))}
-                />
-              </div>
-            ))}
+            <h3>{isEditing ? 'Edit Address' : 'Add New Address'}</h3>
+            <div className="new-address-input-group">
+              <input
+                className="new-address-input"
+                type="text"
+                placeholder="House Number"
+                value={newAddress.houseNumber}
+                onChange={(e) => setNewAddress({ ...newAddress, houseNumber: e.target.value })}
+              />
+              <input
+                className="new-address-input"
+                type="text"
+                placeholder="Landmark"
+                value={newAddress.landMark}
+                onChange={(e) => setNewAddress({ ...newAddress, landMark: e.target.value })}
+              />
+            </div>
+            <div className="new-address-input-group">
+              <input
+                className="new-address-input"
+                type="text"
+                placeholder="Street"
+                value={newAddress.street}
+                onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })}
+              />
+              <input
+                className="new-address-input"
+                type="text"
+                placeholder="City"
+                value={newAddress.city}
+                onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
+              />
+            </div>
+            <div className="new-address-input-group">
+              <input
+                className="new-address-input"
+                type="text"
+                placeholder="State"
+                value={newAddress.state}
+                onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })}
+              />
+              <input
+                className="new-address-input"
+                type="text"
+                placeholder="Zip Code"
+                value={newAddress.zipCode}
+                onChange={(e) => setNewAddress({ ...newAddress, zipCode: e.target.value })}
+              />
+            </div>
+            <input
+              className="new-address-input"
+              type="text"
+              placeholder="Phone Number"
+              value={newAddress.phoneNumber}
+              onChange={(e) => setNewAddress({ ...newAddress, phoneNumber: e.target.value })}
+            />
+            <div className="new-address-buttons">
+              <button 
+                type="button"
+                className="save-address-button"
+                onClick={handleSaveAddress}
+              >
+                {isEditing ? 'Update Address' : 'Save Address'}
+              </button>
+              <button 
+                type="button"
+                className="cancel-address-button"
+                onClick={resetNewAddressFields}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         )}
         
-        <button onClick={() => setShowNewAddressFields(prev => !prev)}>
+        {/* Toggle Button */}
+        <button 
+          onClick={() => setShowNewAddressFields(prev => !prev)}
+        >
           {showNewAddressFields ? 'Cancel' : 'Add New Address'}
         </button>
-        
-        {showNewAddressFields && (
-          <button onClick={handleSaveAddress}>
-            Save Address
-          </button>
-        )}
 
-        <div className="place-order-container">
-          <button type="button" onClick={handlePlaceOrder}>
-            Process to Pay
-          </button>
-        </div>
+        <button 
+          className="proceed-to-payment-button"
+          onClick={handleProcessToPay}
+        >
+          Proceed to Payment
+        </button>
       </div>
     </div>
   );
 };
 
 export default CartDetails;
-
 
 
 

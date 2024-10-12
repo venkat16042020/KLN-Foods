@@ -1,39 +1,16 @@
-// import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-// const PaymentContext = createContext();
-
-// export const PaymentProvider = ({ children }) => {
-//   const [payments, setPayments] = useState([]);
-//   const [transactionId, setTransactionId] = useState(null); // Store transaction ID
-
-//   return (
-//     <PaymentContext.Provider value={{ payments, setPayments, transactionId, setTransactionId }}>
-//       {children}
-//     </PaymentContext.Provider>
-//   );
-// };
-
-// export const usePaymentContext = () => useContext(PaymentContext);
-
-
-// PaymentContext.js
-import React, { createContext, useContext, useState } from 'react';
-
-// Create the Payment Context
 const PaymentContext = createContext();
 
-// Create a custom hook to use the Payment Context
-export const usePaymentContext = () => {
-  return useContext(PaymentContext);
-};
-
-// Create a provider component
 export const PaymentProvider = ({ children }) => {
-  const [transactionId, setTransactionId] = useState(null);
+  const [transactionId, setTransactionId] = useState('');
+  const [status, setStatus] = useState('');
 
   return (
-    <PaymentContext.Provider value={{ transactionId, setTransactionId }}>
+    <PaymentContext.Provider value={{ transactionId, setTransactionId, status, setStatus }}>
       {children}
     </PaymentContext.Provider>
   );
 };
+
+export const usePaymentContext = () => useContext(PaymentContext);

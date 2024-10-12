@@ -1,9 +1,9 @@
-.add-restaurant-container {
+/* .add-restaurant-container {
     padding: 20px;
     border-radius: 8px;
     border: 2px solid #ccc;
     max-width: 900px;
-    margin: 100px auto; /* Added top margin to create space between navbar and container */
+    margin: 100px auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -68,17 +68,17 @@ textarea {
 }
 .add-restaurant-buttons {
     display: flex;
-    justify-content: flex-start; /* Align buttons to the left */
-    gap: 10px; /* Smaller gap between the buttons */
+    justify-content: flex-start; 
+    gap: 10px; 
     grid-column: span 2; 
 }
 
 .submit-button, .clear-button {
-    height: 50px; /* Uniform button height */
+    height: 50px;
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    width: 48%; /* Reduce width for buttons to make room for both */
+    width: 48%; 
 }
 
 .submit-button {
@@ -89,4 +89,4 @@ textarea {
 .clear-button {
     background-color: #f44336; 
     color: white;
-}
+} */

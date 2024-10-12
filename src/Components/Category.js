@@ -62,7 +62,7 @@ const Category = () => {
         description: '',
         imageUrl: '',
       });
-      setFormErrors({}); // Clear errors after successful submit
+      setFormErrors({});
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -73,39 +73,43 @@ const Category = () => {
       <h2>Category Form</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Enter category name"
-          />
-          {formErrors.name && <span className="error-text">{formErrors.name}</span>}
+          <div className="input-group">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter category name"
+            />
+            {formErrors.name && <span className="error-text">{formErrors.name}</span>}
+          </div>
+          <div className="input-group">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Enter category description"
+            />
+            {formErrors.description && <span className="error-text">{formErrors.description}</span>}
+          </div>
         </div>
         <div className="form-row">
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Enter category description"
-          />
-          {formErrors.description && <span className="error-text">{formErrors.description}</span>}
-        </div>
-        <div className="form-row">
-          <label htmlFor="imageUrl">Image URL:</label>
-          <input
-            type="text"
-            id="imageUrl"
-            name="imageUrl"
-            value={formData.imageUrl}
-            onChange={handleChange}
-            placeholder="Enter image URL"
-          />
-          {formErrors.imageUrl && <span className="error-text">{formErrors.imageUrl}</span>}
+          <div className="input-group">
+            <label htmlFor="imageUrl">Image URL:</label>
+            <input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              value={formData.imageUrl}
+              onChange={handleChange}
+              placeholder="Enter image URL"
+            />
+            {formErrors.imageUrl && <span className="error-text">{formErrors.imageUrl}</span>}
+          </div>
         </div>
         <button type="submit" className="submit-btn">Submit</button>
       </form>

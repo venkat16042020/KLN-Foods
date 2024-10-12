@@ -13,7 +13,6 @@ import CartDetails from './CartDetails';
 import { useCart } from './CartContext';
 import SignUp from './SignUp';
 import Login from './Login';
-// import AddRestaurant from './AddRestaurant';
 import './NavbarCom.css';
 import Payment from './Payment';
 import Admin from './Admin';
@@ -23,14 +22,19 @@ const NavbarCom = () => {
   const { getCartItemCount } = useCart();
   const navigate = useNavigate();
   const [userName, setUserName] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   const handleLogout = () => {
+    console.log("Logging out...");
     setUserName(null);
+    setUserRole(null);
     navigate('/login');
   };
 
-  const handleLoginSuccess = (firstName) => {
+  const handleLoginSuccess = (firstName, role) => {
     setUserName(firstName);
+    setUserRole(role);
+    console.log("User logged in with role:", role); 
   };
 
   return (
@@ -40,14 +44,26 @@ const NavbarCom = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/home" className="home-link">Home</Nav.Link>
-              <Nav.Link as={Link} to="/about" className="about-link">About</Nav.Link>
-              <Nav.Link as={Link} to="/category" className="category-link">Category</Nav.Link>
-              <Nav.Link as={Link} to="/item" className="item-link">Item</Nav.Link>
-              <Nav.Link as={Link} to="/foodlist" className="foodlist-link">FoodList</Nav.Link>
-              <Nav.Link as={Link} to="/payment" className="payment-link">Payment</Nav.Link>
-              <Nav.Link as={Link} to="/admin" className="admin-link">Admin</Nav.Link>
-              <Nav.Link as={Link} to="/dashboard" className="dashboard-link">Dashboard</Nav.Link>
+              {userRole === 'ADMIN' ? ( 
+                <>
+                  <Nav.Link as={Link} to="/admin" className="admin-link">Admin</Nav.Link>\
+                  <Nav.Link as={Link} to="/category" className="category-link">Category</Nav.Link>
+                  <Nav.Link as={Link} to="/item" className="item-link">Item</Nav.Link>
+                  <Nav.Link as={Link} to="/foodlist" className="foodlist-link">FoodList</Nav.Link>
+                  
+                </>
+              ) : (
+                <>
+                  <Nav.Link as={Link} to="/home" className="home-link">Home</Nav.Link>
+                  <Nav.Link as={Link} to="/about" className="about-link">About</Nav.Link>
+                  <Nav.Link as={Link} to="/payment" className="payment-link">Payment</Nav.Link>
+                  <Nav.Link as={Link} to="/dashboard" className="dashboard-link">Dashboard</Nav.Link>
+
+
+
+
+                </>
+              )}
             </Nav>
             <Nav className="ms-auto">
               <Nav.Link>
@@ -57,13 +73,12 @@ const NavbarCom = () => {
                 <ShoppingCartIcon />
                 {getCartItemCount() > 0 && <span className="cart-count">{getCartItemCount()}</span>}
               </Nav.Link>
-              {!userName && (
+              {!userName ? (
                 <>
                   <Nav.Link as={Link} to="/signup" className="signup-link">SignUp</Nav.Link>
                   <Nav.Link as={Link} to="/login" className="login-link">Login</Nav.Link>
                 </>
-              )}
-              {userName && (
+              ) : (
                 <Dropdown align="end">
                   <Dropdown.Toggle variant="success" id="dropdown-basic" className="profile-icon">
                     {userName.charAt(0).toUpperCase()}
@@ -79,20 +94,30 @@ const NavbarCom = () => {
       </Navbar>
       <div>
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/category" element={<Category />} />
-          <Route path="/item" element={<Item />} />
-          <Route path="/foodlist" element={<FoodList />} />
-          {/* Uncomment the line below if you have the AddRestaurant component */}
-          {/* <Route path="/addrestaurant" element={<AddRestaurant />} /> */}
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/cartdetails" element={<CartDetails />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* Customer Routes */}
+          {userRole !== 'ADMIN' && (
+            <>
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<About />} />
+             
+              <Route path="/cartdetails" element={<CartDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </>
+          )}
+          {/* Admin Routes */}
+          {userRole === 'ADMIN' && (
+            <>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/item" element={<Item />} />
+              <Route path="/foodlist" element={<FoodList />} />
+             
+            </>
+          )}
         </Routes>
       </div>
     </div>
