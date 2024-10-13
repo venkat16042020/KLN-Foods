@@ -46,7 +46,7 @@ const NavbarCom = () => {
             <Nav className="me-auto">
               {userRole === 'ADMIN' ? ( 
                 <>
-                  <Nav.Link as={Link} to="/admin" className="admin-link">Admin</Nav.Link>\
+                  <Nav.Link as={Link} to="/admin" className="admin-link">Admin</Nav.Link>
                   <Nav.Link as={Link} to="/category" className="category-link">Category</Nav.Link>
                   <Nav.Link as={Link} to="/item" className="item-link">Item</Nav.Link>
                   <Nav.Link as={Link} to="/foodlist" className="foodlist-link">FoodList</Nav.Link>

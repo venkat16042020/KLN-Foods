@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
-import './Payment.css'; // Ensure you have this CSS file for styles
+import './Payment.css'; 
 import Phonepe from '../Images/Phonepe.png';
 import Gpay from '../Images/Gpay.jpg';
 import Paytm from '../Images/Paytm.jpg';
@@ -10,18 +10,18 @@ import { usePaymentContext } from './PaymentContext';
 
 const Payment = () => {
   const location = useLocation();
-  const { totalAmount = 0 } = location.state || {}; // Accessing totalAmount
+  const { totalAmount = 0 } = location.state || {}; 
   const { setTransactionId } = usePaymentContext();
 
-  // Ensure totalAmount is a valid number
+  
   const amount = typeof totalAmount === 'number' ? totalAmount : parseFloat(totalAmount) || 0;
 
-  // State variables
+  
   const [paymentProcessed, setPaymentProcessed] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [transactionId, setLocalTransactionId] = useState(null);
 
-  // Function to generate a unique transaction ID
+  
   const generateTransactionId = useCallback(() => {
     const newTransactionId = `KLN${Math.floor(1000000 + Math.random() * 9000000)}`;
     setTransactionId(newTransactionId);
@@ -29,7 +29,6 @@ const Payment = () => {
     return newTransactionId;
   }, [setTransactionId]);
 
-  // Function to process payment based on selected app
   const processPayment = useCallback(async (app) => {
     const newTransactionId = generateTransactionId();
     const paymentData = {
@@ -57,7 +56,7 @@ const Payment = () => {
     }
   }, [generateTransactionId, amount]);
 
-  // Polling for payment status
+  
   useEffect(() => {
     let interval;
     if (paymentProcessed && transactionId) {
@@ -70,12 +69,12 @@ const Payment = () => {
           const data = await response.json();
           setPaymentStatus(data.status);
           if (data.status !== 'Pending') {
-            clearInterval(interval); // Stop polling when payment status is not pending
+            clearInterval(interval); 
           }
         } catch (error) {
           console.error('Error fetching payment status:', error);
         }
-      }, 3000); // Poll every 3 seconds
+      }, 3000); 
 
       return () => clearInterval(interval);
     }
@@ -83,8 +82,8 @@ const Payment = () => {
 
   return (
     <div className="payment-container">
-      <h2>Payment Page</h2>
-      <p>Total Amount: ₹{amount.toFixed(2)}</p> {/* Displaying totalAmount */}
+      
+      <p>Total Amount: ₹{amount.toFixed(2)}</p> 
 
       {!paymentProcessed && !paymentStatus && (
         <>
