@@ -133,7 +133,7 @@ const Admin = () => {
       setTransactionId(transactionId); 
       setStatus(status);
 
-      // Update the local payments state to reflect the change
+     
       setPayments(prevPayments => prevPayments.map(payment =>
         payment.transactionId === transactionId ? { ...payment, status } : payment
       ));

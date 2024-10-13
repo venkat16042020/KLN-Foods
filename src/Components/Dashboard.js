@@ -16,7 +16,7 @@ const Dashboard = () => {
   const getQuote = (status) => {
     switch (status) {
       case 'Success':
-        return "Thank You for Visiting. Enjoy your meal!";
+        return "Thank You for Visiting. Enjoy your food!";
       case 'Failed':
         return "Payment failed. Please try again; delicious food is waiting for you!";
       default:
