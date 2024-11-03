@@ -36,9 +36,9 @@ const Home = () => {
     <div className="home-container">
       <div className="home-image-container">
         <img
-          src="https://cdn.pixabay.com/photo/2024/04/23/09/33/ai-generated-8714546_960_720.jpg"
-          alt="India"
-          className="home-image"
+//        src="https://cdn.pixabay.com/photo/2024/04/23/09/33/ai-generated-8714546_960_720.jpg"
+//          alt="India"
+//          className="home-image"
         />
         <div className="home-overlay">
           <h1 className="home-title">KLN Hotels</h1>
