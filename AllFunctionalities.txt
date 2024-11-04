@@ -1,23 +1,23 @@
-KLN1B-E00001: Customers
-  KLN1B-US00001: Add Customer; KLN1B-US00002: Update Customer; KLN1B-US00003: Delete Customer; KLN1B-US00004: Merge Customers; KLN1B-US00005: Upload Customers; KLN1B-US00006: Download Customers
-KLN1B-E00002: Admins
-  KLN1B-US00007: Add Admin; KLN1B-US00008: Update Admin; KLN1B-US00009: Delete Admin; KLN1B-US00010: Merge Admins; KLN1B-US00011: Upload Admins; KLN1B-US00012: Download Admins
-KLN1B-E00003: Profiles
-KLN1B-E00004: Categories
-  KLN1B-US00001: Grains, Snacks, Dairy
-KLN1B-E00005: Upload and Download categories
-KLN1B-E00006: Items
-KLN1B-E00007: Upload and Download items
-KLN1B-E00008: Cart
-KLN1B-E00009: Payment
-KLN1B-E00010: History
-KLN1B-E00011: Search
-KLN1B-E00012: Advertisements
-KLN1B-E00013: ContactUs
-KLN1B-E00014: AboutUs
-KLN1B-E00015: Invoice
-KLN1B-E00016: Ratings
-KLN1B-E00017: Feedback
-KLN1B-E00018: Discounts
-KLN1B-E00019: Offers
-KLN1B-E00020: Notifications
+KLN1F-E00001: Customers
+  KLN1F-US00001: Add Customer; KLN1F-US00002: Update Customer; KLN1F-US00003: Delete Customer; KLN1F-US00004: Merge Customers; KLN1F-US00005: Upload Customers; KLN1F-US00006: Download Customers
+KLN1F-E00002: Admins
+  KLN1F-US00007: Add Admin; KLN1F-US00008: Update Admin; KLN1F-US00009: Delete Admin; KLN1F-US00010: Merge Admins; KLN1F-US00011: Upload Admins; KLN1F-US00012: Download Admins
+KLN1F-E00003: Profiles
+KLN1F-E00004: Categories
+  KLN1F-US00001: Grains, Snacks, Dairy
+KLN1F-E00005: Upload and Download categories
+KLN1F-E00006: Items
+KLN1F-E00007: Upload and Download items
+KLN1F-E00008: Cart
+KLN1F-E00009: Payment
+KLN1F-E00010: History
+KLN1F-E00011: Search
+KLN1F-E00012: Advertisements
+KLN1F-E00013: ContactUs
+KLN1F-E00014: AboutUs
+KLN1F-E00015: Invoice
+KLN1F-E00016: Ratings
+KLN1F-E00017: Feedback
+KLN1F-E00018: Discounts
+KLN1F-E00019: Offers
+KLN1F-E00020: Notifications
